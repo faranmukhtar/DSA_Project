@@ -1,0 +1,11 @@
+# VS Code configs (local-only)
+.vscode/tasks.json
+.vscode/launch.json
+
+# Build outputs
+*.exe
+*.o
+*.obj
+
+# Other VS Code stuff
+.vscode/settings.json

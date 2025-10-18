@@ -1,6 +1,4 @@
-# VS Code configs (local-only)
-.vscode/tasks.json
-.vscode/launch.json
+
 
 # Build outputs
 *.exe

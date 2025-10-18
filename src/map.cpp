@@ -11,6 +11,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({windowWidth, windowHeight}), "SFML Window - % based size");
     window.setPosition({35,10});
 
+
     sf::RectangleShape rectangle({100.f, 200.f});
     rectangle.setFillColor(sf::Color::Blue);
     rectangle.setPosition({100.f, 200.f});
@@ -27,6 +28,7 @@ int main() {
 
         window.draw(rectangle);
         window.display();
+
     }
     return 0;
 }

@@ -56,7 +56,7 @@ void Samurai::update(float deltaTime, Enemy** enemies, int enemyCount, Ally** al
             }
         } 
         else{
-            isMoving = true;
+            isMoving = true; //random comment
             moveToTarget(deltaTime, allies, allyCount);
         }
     }

@@ -35,7 +35,7 @@ void Game::loadTitleScreens(){
 void Game::initialize() {
     loadTitleScreens();
 
-    // Initialize font
+    // Initialize all
     if(!BlackRunning.loadFromFile("images/Blackninjarun.png")){
         cout<<"Failed to load black ninja running ";
     }
@@ -66,7 +66,6 @@ void Game::initialize() {
     if(!Yellowrunning.loadFromFile("images/YellowninjaRun.png")){
         cout<<"Failed to load yellow ninja running"<<endl;
     }
-    // Initialize map and dojo
     if(!Whiterunning.loadFromFile("images/WhiteRun.png")){
         cout<<"Failed to load white run";
     }

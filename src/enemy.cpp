@@ -185,7 +185,7 @@ void Enemy::moveAlongPath(float deltaTime, vector<vector<int>> grid){
     float dy = pixelPosition.y - dojoPixelY;
     float distanceToDojo = std::sqrt(dx*dx + dy*dy);
 
-    //Stop when within 80 pixels of dojo center(adjust this value)
+    //Stop when within 60 pixels of dojo center(adjust this value)
     if(distanceToDojo <= 60.0f){
         cout << "reached dojo" << endl;
         isMoving = false;
@@ -194,7 +194,7 @@ void Enemy::moveAlongPath(float deltaTime, vector<vector<int>> grid){
     }
 }
 
-//commented out for future use in recursive pathfinding algorithm
+
 void Enemy::setPath(vector<GridPosition> enemypath) {
     path = new vector<GridPosition>( enemypath);
     pathLength = path->size();

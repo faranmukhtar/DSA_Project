@@ -33,7 +33,7 @@ void Ally::setPosition(GridPosition newPos){
 }
 
 // Samurai implementation
-Samurai::Samurai(GridPosition pos) : Ally(0, 10, 1, 1.0f, pos), health(100), maxHealth(100),
+Samurai::Samurai(GridPosition pos) : Ally(0, 20, 1, 1.0f, pos), health(120), maxHealth(100),
 currentTarget(nullptr), isMoving(false){}
 
 Samurai::~Samurai() {}
@@ -209,14 +209,7 @@ int Samurai::getMaxHealth() const{
 
 // ArcherTower implementation
 ArcherTower::ArcherTower(GridPosition pos) 
-    : Ally(1, 5, 5, 0.5f, pos), arrowSpeed(2.0f), arrowCount(0),
-      enemyQueue([](Enemy* a, Enemy* b){
-          
-        if(a->getType() != b->getType()) { //priority queue logic (stronger enemies first) 
-            return a->getType() < b->getType(); //Higher type first
-        }
-          return a->getHealth() < b->getHealth(); //Higher health first
-      })
+    : Ally(1, 5, 5, 0.5f, pos), arrowSpeed(2.0f), arrowCount(0)
 {
     for(int i = 0; i < MAX_ARROWS; i++) arrows[i] = nullptr;
 }
@@ -237,11 +230,7 @@ bool ArcherTower::isInRange(const Enemy* enemy) const{
 }
 
 void ArcherTower::updateEnemyQueue(Enemy** enemies, int enemyCount){
-    
-    while(!enemyQueue.empty()){
-        enemyQueue.pop();
-    }
-    
+    enemyQueue.clear();
     
     for(int i = 0; i < enemyCount; i++){
         if(enemies[i] && enemies[i]->getIsActive() && isInRange(enemies[i])){
@@ -250,30 +239,22 @@ void ArcherTower::updateEnemyQueue(Enemy** enemies, int enemyCount){
     }
 }
 
-// Remove dead or out-of-range enemies from queue
+//helper function to remove dead or out of range enemies from queue
 void ArcherTower::cleanupQueue(){
-    //create a temporary queue to filter out invalid enemies
-    std::priority_queue<Enemy*, std::vector<Enemy*>, 
-        std::function<bool(Enemy*, Enemy*)>> tempQueue(
-            [](Enemy* a, Enemy* b){
-                if(a->getType() != b->getType()){
-                    return a->getType() < b->getType();
-                }
-                return a->getHealth() < b->getHealth();
-            });
+    Enemy* validEnemies[MAX_QUEUE_SIZE];
+    int validCount = 0;
     
-    //copy valid enemies to temp queue
     while(!enemyQueue.empty()){
         Enemy* enemy = enemyQueue.top();
         enemyQueue.pop();
-        
         if(enemy && enemy->getIsActive() && isInRange(enemy)){
-            tempQueue.push(enemy);
+            validEnemies[validCount++] = enemy;
         }
     }
     
-    //restore the queue
-    enemyQueue = std::move(tempQueue);
+    for(int i = 0; i < validCount; i++){ //rebuild queue..
+        enemyQueue.push(validEnemies[i]);
+    }
 }
 
 void ArcherTower::update(float deltaTime, Enemy** enemies, int enemyCount, Ally** allies = nullptr, int allyCount =0){

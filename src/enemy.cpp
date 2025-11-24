@@ -241,5 +241,5 @@ Chunin::Chunin(GridPosition spawnPos , GridPosition dojo) : Enemy(1, 100, 10, 25
 Chunin::~Chunin() {}
 
 // Jonin implementation
-Jonin::Jonin(GridPosition spawnPos , GridPosition dojo) : Enemy(2, 2, 150, 20.0f, spawnPos , dojo) {}
+Jonin::Jonin(GridPosition spawnPos , GridPosition dojo) : Enemy(2, 150, 20, 20.0f, spawnPos , dojo) {}
 Jonin::~Jonin() {}

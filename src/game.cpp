@@ -4,7 +4,7 @@
 
 Game::Game() :
                 currentMap(nullptr), playerDojo(nullptr), allies(nullptr), enemies(nullptr),
-                currentWave(0), samuraiLeft(4), archerTowersLeft(16), gameRunning(false), gameWon(false), gameLost(false),
+                currentWave(0), samuraiLeft(4), archerTowersLeft(12), gameRunning(false), gameWon(false), gameLost(false),
                 maxAllies(50), maxEnemies(100), allyCount(0),spawnTimer(0.0f), spawnInterval(2.0f), enemiesToSpawn(20), enemiesSpawned(0), enemiesDefeated(0), enemyCount(0), windowheight(sf::VideoMode::getDesktopMode().size.y * 0.8f), windowwidth(sf::VideoMode::getDesktopMode().size.x * 0.8f),
                 window(sf::VideoMode({static_cast<unsigned int>(sf::VideoMode::getDesktopMode().size.x * 0.8f),static_cast<unsigned int>(sf::VideoMode::getDesktopMode().size.y * 0.8f)}),"DojoDefender"), currentScreen(0), showTitleScreens(true)
                {
@@ -99,7 +99,7 @@ void Game::initialize() {
     }
 
     currentMap = new Map();
-    playerDojo = new Dojo(currentMap->getDojoPosition(), 100);
+    playerDojo = new Dojo(currentMap->getDojoPosition(), 200);
     enemyspawnpoint = currentMap->getenemyspawn();
 
     initializeEnemyStack();
@@ -481,10 +481,10 @@ void Game::renderAlly(const Ally& ally) {
 
 void Game::renderEnemy(const Enemy& enemy) {
 
-    if(enemy.getType() == 0 || enemy.getType() == 2) {  // White or Black
-        cout << "Type " << enemy.getType() << " frame: " << enemy.getAnimationFrame() 
-             << " moving: " << enemy.getismoving() << " attacking: " << enemy.getisAttacking() << endl;
-    }
+    // if(enemy.getType() == 0 || enemy.getType() == 2) {  // White or Black
+    //     cout << "Type " << enemy.getType() << " frame: " << enemy.getAnimationFrame() 
+    //          << " moving: " << enemy.getismoving() << " attacking: " << enemy.getisAttacking() << endl;
+    // }
 
     float cellWidth  = static_cast<float>(windowwidth) / currentMap->getWidth();
     float cellHeight = static_cast<float>(windowheight) / currentMap->getHeight();

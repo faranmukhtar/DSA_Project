@@ -34,7 +34,7 @@ void Ally::setPosition(GridPosition newPos){
 
 // Samurai implementation
 Samurai::Samurai(GridPosition pos) : Ally(0, 20, 1, 1.0f, pos), health(120), maxHealth(100),
-currentTarget(nullptr), isMoving(false){}
+currentTarget(nullptr), isMoving(false), animationTimer(0.0f), currentAnimFrame(0){}
 
 Samurai::~Samurai() {}
 
@@ -47,33 +47,24 @@ void Samurai::update(float deltaTime, Enemy** enemies, int enemyCount, Ally** al
     
     attackCooldown -= deltaTime;
     
-    // Static timers shared by ALL samurai
-    static float sharedAnimTimer = 0.0f;
-    static int sharedAttackFrame = 0;
-    static int sharedRunFrame = 0;
-    
+    // Use instance variables - NO static variables!
     if(isInAttackRange()) {
-        // Update shared attack animation
-        sharedAnimTimer += deltaTime;
-        if(sharedAnimTimer >= 0.15f) {
-            sharedAttackFrame = (sharedAttackFrame + 1) % 4;
-            sharedAnimTimer = 0.0f;
+        animationTimer += deltaTime;
+        if(animationTimer >= 0.15f) {
+            currentAnimFrame = (currentAnimFrame + 1) % 4;
+            animationTimer = 0.0f;
         }
-        currentAnimFrame = sharedAttackFrame;
     } 
     else if(isMoving) {
-        // Update shared run animation
-        sharedAnimTimer += deltaTime;
-        if(sharedAnimTimer >= 0.1f) {
-            sharedRunFrame = (sharedRunFrame + 1) % 4;
-            sharedAnimTimer = 0.0f;
+        animationTimer += deltaTime;
+        if(animationTimer >= 0.1f) {
+            currentAnimFrame = (currentAnimFrame + 1) % 4;
+            animationTimer = 0.0f;
         }
-        currentAnimFrame = sharedRunFrame;
     } 
     else {
-        
         currentAnimFrame = 0;
-        sharedAnimTimer = 0.0f;
+        animationTimer = 0.0f;
     }
     
     if(!currentTarget || !currentTarget->getIsActive()){

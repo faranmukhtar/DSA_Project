@@ -147,6 +147,7 @@ private:
     float animationTimer;   
     int currentAnimFrame;   
 
+        
 public:
     Samurai(GridPosition pos);
     

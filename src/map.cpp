@@ -12,14 +12,13 @@ Map::Map() {
 
     srand(time(0));
 
-    // replace y with rand()%10 + 4
-    enemyspawnPoint = GridPosition(35, 7 );
-    // replace y with rand()%10 + 8
-    dojoPosition = GridPosition(2, 11 );
+    enemyspawnPoint = GridPosition(35, 7);
+    
+    dojoPosition = GridPosition(2, 11);
 
     cout<<"dojo AT "<<dojoPosition.x<<','<<dojoPosition.y<<endl;
     cout<<"enemy AT "<<enemyspawnPoint.x<< ',' <<enemyspawnPoint.y<<endl;
-    grid.resize(WIDTH, vector<int>(HEIGHT, 0)); // ✅ FIX: grid[x][y] means [row][column]
+    grid.resize(WIDTH, vector<int>(HEIGHT, 0)); 
 
     // block edges
     for (int x = 0; x < WIDTH; x++) {
@@ -51,15 +50,14 @@ Map::Map() {
     vector<vector<int>> temp1 = grid;
     vector<vector<int>> temp2 = grid;
     vector<vector<int>> temp3 = grid;
-    vector<vector<int>> temp4 = grid;
+
     path0.clear();
     path1.clear();
     path2.clear();
-    path3.clear();
+  
     findPath(enemyspawnPoint, dojoPosition, 2, temp3);
     findPath(enemyspawnPoint, dojoPosition, 0, temp1);
     findPath(enemyspawnPoint, dojoPosition, 1, temp2);
-    // findPath(enemyspawnPoint, dojoPosition, 3, temp4);
 
     vector<vector<bool>> visited(WIDTH, vector<bool>(HEIGHT, false));
     grid[35][enemyspawnPoint.y] = 8;
@@ -98,41 +96,19 @@ bool Map::isValidPosition(int x, int y) const {
 
 bool Map::isValidPath(int x, int y, vector<vector<int>> &temp) const {
     if (isValidPosition(x, y) && temp[x][y] == 0 ) { 
-        // cout << "TRUE Want to place at " << x << ',' << y << endl;
+        
         return true;
     }
-    // cout << "false " << temp[x][y] << endl;
+    
     return false;
 }
 
 bool Map::findPath(const GridPosition &start, const GridPosition &end, int pathfound, vector<vector<int>> &temp) {
-    // cout << "Traversing" << endl;
-    // cout << "START: " << start.x << " " << start.y << endl;
-    // cout << "END  : " << end.x << " " << end.y << endl;
-    
     if (!isValidPosition(start.x, start.y))
         return false;
 
-    // print temp at each traversal
-    // for (int x = 0; x < WIDTH; x++) {
-    //     for (int y = 0; y < HEIGHT; y++) {
-    //         cout << temp[x][y] << " ";
-    //     }
-    //     cout << endl;
-    // }
-    // cout << endl;
-
     if (start.x == end.x && start.y == end.y) {
         temp[start.x][start.y] = 3;
-
-        // cout << "PATH NO. " << pathfound << endl;
-        // for (int x = 0; x < WIDTH; x++) {
-        //     for (int y = 0; y < HEIGHT; y++) {
-        //         cout << temp[x][y] << " ";
-        //     }
-        //     cout << endl;
-        // }
-        // cout << endl;
 
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
@@ -146,8 +122,7 @@ bool Map::findPath(const GridPosition &start, const GridPosition &end, int pathf
 
     if (isValidPath(start.x, start.y, temp) ) {
         temp[start.x][start.y] = 3;
-        // cout << "PLACED 3 Successfully at " << start.x << ',' << start.y << endl;
-        // stored in path0
+
         if(pathfound == 0){
                 if (findPath(GridPosition(start.x - 1 , start.y     ), end, pathfound, temp))
                     {path0.push_back(GridPosition(start.x - 1 , start.y    ));return true;}
@@ -179,39 +154,6 @@ bool Map::findPath(const GridPosition &start, const GridPosition &end, int pathf
             if (findPath(GridPosition(start.x + 1 , start.y     ), end, pathfound, temp))
                 {path2.push_back(GridPosition(start.x + 1 , start.y    ));return true;}
         }
-        if(pathfound == 3){
-            int num = (rand() % 4) + 1;
-            if(num == 1){
-                if (findPath(GridPosition(start.x     , start.y + 1 ), end, pathfound, temp))
-                {path1.push_back(GridPosition(start.x     , start.y + 1));return true;}
-                if (findPath(GridPosition(start.x - 1 , start.y     ), end, pathfound, temp))
-                    {path1.push_back(GridPosition(start.x - 1 , start.y    ));return true;}
-                if (findPath(GridPosition(start.x     , start.y - 1 ), end, pathfound, temp))
-                    {path1.push_back(GridPosition(start.x     , start.y - 1));return true;}
-                if (findPath(GridPosition(start.x + 1 , start.y     ), end, pathfound, temp)) 
-                    {path1.push_back(GridPosition(start.x + 1  , start.y    ));return true;}
-            }
-            else if(num == 2){
-                if (findPath(GridPosition(start.x     , start.y - 1 ), end, pathfound, temp))
-                {path2.push_back(GridPosition(start.x     , start.y - 1));return true;}
-                if (findPath(GridPosition(start.x - 1 , start.y     ), end, pathfound, temp)) 
-                    {path2.push_back(GridPosition(start.x - 1 , start.y    ));return true;}
-                if (findPath(GridPosition(start.x     , start.y + 1 ), end, pathfound, temp))
-                    {path2.push_back(GridPosition(start.x     , start.y + 1));return true;}
-                if (findPath(GridPosition(start.x + 1 , start.y     ), end, pathfound, temp))
-                    {path2.push_back(GridPosition(start.x + 1 , start.y    ));return true;}
-            }    
-            else{
-                if (findPath(GridPosition(start.x - 1 , start.y     ), end, pathfound, temp))
-                    {path0.push_back(GridPosition(start.x - 1 , start.y    ));return true;}
-                if (findPath(GridPosition(start.x     , start.y + 1 ), end, pathfound, temp))
-                    {path0.push_back(GridPosition(start.x     , start.y + 1));return true;}
-                if (findPath(GridPosition(start.x     , start.y - 1 ), end, pathfound, temp))
-                    {path0.push_back(GridPosition(start.x     , start.y - 1));return true;}
-                if (findPath(GridPosition(start.x + 1 , start.y     ), end, pathfound, temp))
-                    {path0.push_back(GridPosition(start.x     , start.y    ));return true;}
-            }        
-        }
 
         temp[start.x][start.y] = 0;
     }
@@ -220,10 +162,6 @@ bool Map::findPath(const GridPosition &start, const GridPosition &end, int pathf
 }
 
 Map::~Map() {}
-
-void Map::loadMap(int mapNumber) {
-    // For different map designs
-}
 
 int Map::getCellType(int x, int y) const {
     if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)

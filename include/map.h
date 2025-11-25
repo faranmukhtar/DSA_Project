@@ -35,7 +35,6 @@ public:
     Map();
     virtual ~Map();
     
-    void loadMap(int mapNumber);
     int getCellType(int x, int y) const;
     bool isValidPath(int x, int y, std::vector<std::vector<int>>& tgrid) const ; // looks at the path being genrated to see if block can be part of a possible path
     bool isValidPosition(int x, int y) const; // checks if in map 

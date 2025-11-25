@@ -186,7 +186,7 @@ vector<GridPosition> Map::getoptimumpath(Ally** allies, int count){
         path0weight += 1;
         
         for(int j = 0; j < count; j++){
-            if(allies[j] && allies[j]->getIsActive()){  // Add null check!
+            if(allies[j] && allies[j]->getIsActive()){  
                 GridPosition allyPos = allies[j]->getPosition();
                 int dx = abs(allyPos.x - pos0.x);
                 int dy = abs(allyPos.y - pos0.y);

@@ -30,7 +30,7 @@ private:
     vector<GridPosition> path0;
     vector<GridPosition> path1;
     vector<GridPosition> path2;
-    vector<GridPosition> path3;
+  
 public:
     Map();
     virtual ~Map();

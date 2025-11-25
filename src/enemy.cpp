@@ -139,13 +139,13 @@ void Enemy::moveAlongPath(float deltaTime, vector<vector<int>> grid){
     
     pathLength = path->size();
     for(int i = 0 ; i< pathLength ; i++){
-        // cout<<"Inside"<<endl;
+        
         GridPosition target = path->at(i);
-        // cout<<"at "<<i<<" "<<target.x<<" ,"<<target.y<<endl;
+        
     }
     
     if(!path->empty() && currentPathIndex < pathLength){
-        // cout<<"PATH IS NOT EMPTY"<<endl;
+        
         GridPosition target = path->at(currentPathIndex);
         int TargetPixelX = target.x * 40;
         int TargetPixelY = target.y * 40;

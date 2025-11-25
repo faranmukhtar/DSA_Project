@@ -492,7 +492,7 @@ void Game::renderEnemy(const Enemy& enemy) {
             sf::Vector2f origin(WhiteIdle.getSize().x / 2.0f, WhiteIdle.getSize().y / 2.0f);
             Enemysprite.setOrigin(origin);
         }
-        window.draw(Enemysprite);  // IMPORTANT: Draw outside if/else
+        window.draw(Enemysprite); 
         
     } else if(enemy.getType() == 1) {  // Chunin - Yellow ninja
         sf::Sprite Enemysprite(Yellowrunning);

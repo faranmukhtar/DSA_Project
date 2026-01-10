@@ -37,7 +37,7 @@ void Game::initialize() {
 
     // Initialize all
 
-    if(!backgroundSound.loadFromFile("music/sound1.mp3")){
+    if(!backgroundSound.loadFromFile("include/music/sound1.mp3")){
         cout<<"Failed to load";
     }
     if(!BlackRunning.loadFromFile("images/Blackninjarun.png")){

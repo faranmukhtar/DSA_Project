@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
 #include <string>
@@ -69,6 +70,9 @@ private:
     Ally** allies;
     Enemy** enemies;
     EnemyStack enemyStack; 
+
+    sf::SoundBuffer backgroundSound;
+    
     sf::Texture boundarytree; 
     sf::Texture obstacletree; 
     sf::Texture grass;

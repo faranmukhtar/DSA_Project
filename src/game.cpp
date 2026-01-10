@@ -36,6 +36,10 @@ void Game::initialize() {
     loadTitleScreens();
 
     // Initialize all
+
+    if(!backgroundSound.loadFromFile("music/sound1.mp3")){
+        cout<<"Failed to load";
+    }
     if(!BlackRunning.loadFromFile("images/Blackninjarun.png")){
         cout<<"Failed to load black ninja running ";
     }
@@ -91,7 +95,7 @@ void Game::initialize() {
     if(!grass.loadFromFile("images/Grass.png")){
         cout << "Failed to load grass.png\n";
     }
-    if(!Spawn.loadFromFile("images/Enemyspawn.png"));{
+    if(!Spawn.loadFromFile("images/Enemyspawn.png")){
         cout<<"Failed to load enemyspawn";
     }
     if(!Soil.loadFromFile("images/Soil.png")){
@@ -111,8 +115,11 @@ void Game::run() {
     sf::Clock clock;
     float deltaTime = 0.0f;
     window.setVerticalSyncEnabled(true);
-    
+    sf::Sound Backsound(backgroundSound);
+    Backsound.setLooping(true);
+    Backsound.play();
     while(gameRunning && window.isOpen()) {
+        
         deltaTime = clock.restart().asSeconds();
         if(showTitleScreens){
             handleTitleScreenEvents();
